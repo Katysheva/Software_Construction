@@ -12,13 +12,14 @@ namespace Lab_2
         static void Main(string[] args)
         {
             var ar = new Queue();
-
-            for (int i = 0; i < 50; i++)
-            {
-                ar.AddToTheEnd((double)r.Next(50) / r.Next(10));
-            }
+            InitQueue(ar);
             var elem = ar.RemoveForward();
-
         }
+        public static void InitQueue(IQueue qu)
+        {
+            for (int i = 0; i < 50; i++)
+                qu.AddToTheEnd((double)r.Next(50) / r.Next(10));
+        }
+
     }
 }
