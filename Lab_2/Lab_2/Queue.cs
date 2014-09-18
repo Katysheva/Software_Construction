@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab_2
 {
-    class Queue : IQueue
+    public class Queue : IQueue
     {
         private double[] array;
         private int pointerEnd;
@@ -27,7 +27,7 @@ namespace Lab_2
             pointerEnd++;
         }
 
-        public void ExtendArray(int count)
+        void ExtendArray(int count)
         {
             var tmpArray = new double[array.Length + count];
             array.CopyTo(tmpArray, 0);
