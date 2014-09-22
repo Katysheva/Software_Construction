@@ -13,7 +13,11 @@ namespace Lab_2
         {
             var ar = new Queue();
             InitQueue(ar);
-            var elem = ar.RemoveForward();
+
+            foreach (var item in ar)
+                Console.WriteLine(item);
+
+            //var elem = ar.RemoveForward();
         }
         public static void InitQueue(IQueue qu)
         {

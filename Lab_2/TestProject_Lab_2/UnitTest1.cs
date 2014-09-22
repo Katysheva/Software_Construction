@@ -8,6 +8,7 @@ namespace TestProject_Lab_2
     public class UnitTest1
     {
         Random r = new Random();
+
         [TestMethod]
         public void DequeueTest()
         {
@@ -20,13 +21,26 @@ namespace TestProject_Lab_2
             var actual = q.RemoveForward();
             Assert.AreEqual(firstAdded, actual);
         }
+
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         public void InvalidDequeueTest()
         {
             var q = new Queue();
             q.RemoveForward();
-            
+        }
+
+        [TestMethod]
+        public void EnumeratorTest()
+        {
+            var q = new Queue();
+            for (int i = 0; i < 20; i++)
+                q.AddToTheEnd(1 + i);
+            var expected = "1234567891011121314151617181920";
+            var actual = "";
+            foreach (var item in q)
+                actual += item;
+            Assert.AreEqual(expected, actual);
         }
     }
 }

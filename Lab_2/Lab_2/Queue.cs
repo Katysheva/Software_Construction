@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lab_2
 {
-    public class Queue : IQueue
+    public class Queue : IQueue, IEnumerable, IComparable, ICloneable
     {
         private double[] array;
         private int pointerEnd;
@@ -41,6 +42,22 @@ namespace Lab_2
             var element = array[pointerForward];
             pointerForward++;
             return element;
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            for (int i = 0; i < array.Length; ++i)
+                yield return array[i];
+        }
+
+        public int CompareTo(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public object Clone()
+        {
+            throw new NotImplementedException();
         }
     }
 }
