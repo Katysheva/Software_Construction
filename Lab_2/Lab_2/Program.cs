@@ -9,13 +9,26 @@ namespace Lab_2
     class Program
     {
         static Random r = new Random();
+
         static void Main(string[] args)
         {
-            var ar = new Queue();
-            InitQueue(ar);
+            var list = new List<Queue>();
+            for (int i = 0; i < 10; i++)
+            {
+                var ar = new Queue();
+                InitQueue(ar);
+                list.Add(ar);
+            }
+            list.Sort();
 
-            foreach (var item in ar)
-                Console.WriteLine(item);
+            //foreach (var item in ar)
+            //    Console.WriteLine(item);
+
+            //Console.WriteLine("This is a clone version");
+
+            //ar.Clone();
+            //foreach (var item in ar)
+            //    Console.WriteLine(item);
 
             //var elem = ar.RemoveForward();
         }

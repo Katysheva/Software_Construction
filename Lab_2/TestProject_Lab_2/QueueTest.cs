@@ -1,11 +1,12 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using Lab_2;
 
 namespace TestProject_Lab_2
 {
     [TestClass]
-    public class UnitTest1
+    public class QueueTest
     {
         Random r = new Random();
 
@@ -31,7 +32,7 @@ namespace TestProject_Lab_2
         }
 
         [TestMethod]
-        public void EnumeratorTest()
+        public void ExtendEnumeratorTest()
         {
             var q = new Queue();
             for (int i = 0; i < 20; i++)
@@ -41,6 +42,32 @@ namespace TestProject_Lab_2
             foreach (var item in q)
                 actual += item;
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void EnumeratorTest()
+        {
+            var q = new Queue();
+            for (int i = 0; i < 7; i++)
+                q.AddToTheEnd(1 + i);
+            var expected = "1234567";
+            var actual = "";
+            foreach (var item in q)
+                actual += item;
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void SortTest()
+        {
+            var list = new List<Queue>();
+            for (int i = 0; i < 10; i++)
+            {
+                var ar = new Queue();
+                for (int j = 0; j < r.Next(100); i++)
+                    ar.AddToTheEnd((double)r.Next(50) / r.Next(10));
+                list.Add(ar);
+            }
+            list.Sort();
         }
     }
 }

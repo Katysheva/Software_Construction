@@ -12,10 +12,14 @@ namespace Lab_2
         private double[] array;
         private int pointerEnd;
         private int pointerForward;
+        public int Length
+        {
+            get { return pointerEnd - pointerForward; }
+        }
 
         public Queue()
         {
-            array = new double[10];
+            array = new double[1];
             pointerEnd = 0;
             pointerForward = 0;
         }
@@ -23,7 +27,7 @@ namespace Lab_2
         public void AddToTheEnd(double element)
         {
             if (pointerEnd == array.Length)
-                ExtendArray(10);
+                ExtendArray(1);
             array[pointerEnd] = element;
             pointerEnd++;
         }
@@ -52,12 +56,18 @@ namespace Lab_2
 
         public int CompareTo(object obj)
         {
-            throw new NotImplementedException();
+            var que = obj as Queue;
+            return this.Length.CompareTo(que.Length);
+        }
+
+        public Queue ShallowClone()
+        {
+            return (Queue)this.MemberwiseClone();
         }
 
         public object Clone()
         {
-            throw new NotImplementedException();
+            return new Queue();
         }
     }
 }
