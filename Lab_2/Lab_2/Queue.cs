@@ -12,6 +12,7 @@ namespace Lab_2
         private double[] array;
         private int pointerEnd;
         private int pointerForward;
+
         public int Length
         {
             get { return pointerEnd - pointerForward; }
@@ -35,7 +36,7 @@ namespace Lab_2
         void ExtendArray(int count)
         {
             var tmpArray = new double[array.Length + count];
-            array.CopyTo(tmpArray, 0);
+            array.CopyTo(tmpArray, pointerForward);
             array = tmpArray;
         }
 
@@ -50,10 +51,10 @@ namespace Lab_2
 
         public IEnumerator GetEnumerator()
         {
-            for (int i = 0; i < array.Length; ++i)
+            for (int i = 0; i < array.Length; i++)
                 yield return array[i];
         }
-
+        
         public int CompareTo(object obj)
         {
             var que = obj as Queue;

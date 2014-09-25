@@ -56,18 +56,18 @@ namespace TestProject_Lab_2
                 actual += item;
             Assert.AreEqual(expected, actual);
         }
-        [TestMethod]
-        public void SortTest()
-        {
-            var list = new List<Queue>();
-            for (int i = 0; i < 10; i++)
-            {
-                var ar = new Queue();
-                for (int j = 0; j < r.Next(100); i++)
-                    ar.AddToTheEnd((double)r.Next(50) / r.Next(10));
-                list.Add(ar);
-            }
-            list.Sort();
-        }
+        //[TestMethod]
+        //public void SortTest()
+        //{
+        //    var list = new List<Queue>();
+        //    for (int i = 0; i < 10; i++)
+        //    {
+        //        var ar = new Queue();
+        //        for (int j = 0; j < r.Next(100); i++)
+        //            ar.AddToTheEnd((double)r.Next(50) / r.Next(10));
+        //        list.Add(ar);
+        //    }
+        //    list.Sort();
+        //}
     }
 }

@@ -12,17 +12,19 @@ namespace Lab_2
 
         static void Main(string[] args)
         {
-            var list = new List<Queue>();
-            for (int i = 0; i < 10; i++)
-            {
-                var ar = new Queue();
-                InitQueue(ar);
-                list.Add(ar);
-            }
-            list.Sort();
+            //var list = new List<Queue>();
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    var ar = new Queue();
+            //    InitQueue(ar);
+            //    list.Add(ar);
+            //}
+            //list.Sort();
 
-            //foreach (var item in ar)
-            //    Console.WriteLine(item);
+            var ar = new Queue();
+            InitQueue(ar);
+            foreach (var item in ar)
+                Console.WriteLine(item);
 
             //Console.WriteLine("This is a clone version");
 
@@ -34,8 +36,11 @@ namespace Lab_2
         }
         public static void InitQueue(IQueue qu)
         {
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 40000; i++)
+            {
                 qu.AddToTheEnd((double)r.Next(50) / r.Next(10));
+            }
+
         }
 
     }
