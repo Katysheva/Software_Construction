@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Lab_2
 {
-    interface IQueue
+    interface IQueue<T>
     {
-        void AddToTheEnd(double element);
-        double RemoveForward();
+        void AddToTheEnd(T element);
+        T RemoveForward();
     }
 }
