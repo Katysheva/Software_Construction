@@ -8,9 +8,9 @@ namespace Lab_6
 {
     public class OctTo12
     {
-        public static object OctToInt(string numbers)
+        public static int OctToInt(string numbers)
         {
-            var result = 0;
+            int result = 0;
             var n = 1;
             for (int i = numbers.Length - 1; i >= 0; i--)
             {
@@ -21,5 +21,26 @@ namespace Lab_6
             return result;
         }
 
+        public static object IntTo12(int number)
+        {
+            var result = new List<int>();
+            while (number > 12)
+            {
+                result.Add(number % 12);
+                number = number / 12;
+            }
+            result.Add(number);
+            return Reverse(result); 
+        }
+
+        public static int Reverse(List<int> number)
+        {
+            int[] s = new int[number.Count];
+            for (int i = number.Count - 1; i >= 0; i--)
+            {
+                s[number.Count - 1 - i] = number[i];
+            }
+            return int.Parse(string.Join<int>("", s));
+        }
     }
 }
