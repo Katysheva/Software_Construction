@@ -8,6 +8,9 @@ namespace Lab_5
 {
     class Leaf : Component
     {
+        string color;
+        string shape;
+
         public override void Show()
         {
             //throw new NotImplementedException();
@@ -26,6 +29,17 @@ namespace Lab_5
         public override Component GetChild(int index)
         {
             throw new NotSupportedException();
+        }
+
+        public override Component Color(string color)
+        {
+            this.color = color;
+            return this;
+        }
+        public override Component Shape(string shape)
+        {
+            this.shape = shape;
+            return this;
         }
     }
 }

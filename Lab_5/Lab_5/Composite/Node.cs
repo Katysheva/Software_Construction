@@ -9,6 +9,8 @@ namespace Lab_5
     class Node : Component
     {
         List<Component> childList;
+        string color;
+        string shape;
 
         public Node()
         {
@@ -17,7 +19,8 @@ namespace Lab_5
 
         public override void Show()
         {
-            throw new NotImplementedException();
+            foreach (var item in childList)
+                item.Show();
         }
 
         public override void Add(Component component)
@@ -33,6 +36,17 @@ namespace Lab_5
         public override Component GetChild(int index)
         {
             return childList[index];
+        }
+
+        public override Component Color(string color)
+        {
+            this.color = color;
+            return this;
+        }
+        public override Component Shape(string shape)
+        {
+            this.shape = shape;
+            return this;
         }
     }
 }

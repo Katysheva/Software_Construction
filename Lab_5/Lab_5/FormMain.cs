@@ -12,9 +12,28 @@ namespace Lab_5
 {
     public partial class FormMain : Form
     {
+        Component c;
         public FormMain()
         {
             InitializeComponent();
+        }
+
+        public void Action()
+        {
+            c = new Node();
+            c.Add(new Leaf());
+            c.Add(new Leaf());
+
+            var d = new Node();
+            d.Add(new Leaf().Color("Green").Shape("Square"));
+            d.Add(new Leaf());
+
+            c.Add(d);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Action();
         }
     }
 }
