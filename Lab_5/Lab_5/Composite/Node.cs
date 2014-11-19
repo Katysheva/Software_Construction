@@ -3,24 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
+using System.Collections;
 
 namespace Lab_5
 {
     class Node : Component
     {
         List<Component> childList;
-        string color;
-        string shape;
 
         public Node()
         {
             childList = new List<Component>();
         }
 
-        public override void Show()
+        public override void Show(Graphics g, int level, int index)
         {
+            DrawElement(g, level, index);
+            int i = 0;
             foreach (var item in childList)
-                item.Show();
+            {
+                item.Show(g, level + 1, i);
+                i++;
+            }
         }
 
         public override void Add(Component component)
@@ -36,17 +41,6 @@ namespace Lab_5
         public override Component GetChild(int index)
         {
             return childList[index];
-        }
-
-        public override Component Color(string color)
-        {
-            this.color = color;
-            return this;
-        }
-        public override Component Shape(string shape)
-        {
-            this.shape = shape;
-            return this;
         }
     }
 }

@@ -23,17 +23,23 @@ namespace Lab_5
             c = new Node();
             c.Add(new Leaf());
             c.Add(new Leaf());
-
-            var d = new Node();
-            d.Add(new Leaf().Color("Green").Shape("Square"));
-            d.Add(new Leaf());
-
-            c.Add(d);
+            c.Add(new Leaf());
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            var g = pictureBoxTree.CreateGraphics();
             Action();
+            c.Show(g, 0, 0);
+            //for (int i = 0; i < 20; i++)
+            //{
+            //    c.DrawElement(g, i);
+            //}
+        }
+
+        private void buttonClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

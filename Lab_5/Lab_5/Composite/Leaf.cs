@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,12 +9,9 @@ namespace Lab_5
 {
     class Leaf : Component
     {
-        string color;
-        string shape;
-
-        public override void Show()
+        public override void Show(Graphics g, int level, int index)
         {
-            //throw new NotImplementedException();
+            DrawElement(g, level, index);
         }
 
         public override void Add(Component component)
@@ -29,17 +27,6 @@ namespace Lab_5
         public override Component GetChild(int index)
         {
             throw new NotSupportedException();
-        }
-
-        public override Component Color(string color)
-        {
-            this.color = color;
-            return this;
-        }
-        public override Component Shape(string shape)
-        {
-            this.shape = shape;
-            return this;
         }
     }
 }
