@@ -16,11 +16,12 @@ namespace UnitTestProject_Lab_6
             var actual = OctTo12.OctToInt(number);
             Assert.AreEqual(expected, actual);
         }
+
         [TestMethod]
         public void IntTo12()
         {
             var number = 32;
-            var expected = 28;
+            var expected = "28";
             var actual = OctTo12.IntTo12(number);
             Assert.AreEqual(expected, actual);
 
@@ -29,9 +30,26 @@ namespace UnitTestProject_Lab_6
         public void OctTo12Test()
         {
             var number = "12375";
-            var expected = 3139;
+            var expected = "3139";
             var actual = OctTo12.IntTo12(OctTo12.OctToInt(number));
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void OctTo12Test1()
+        {
+            var number = "26";
+            var expected = "1A";
+            var actual = OctTo12.IntTo12(OctTo12.OctToInt(number));
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void EmptyStringTest()
+        {
+            var number = "";
+            var actual = OctTo12.IntTo12(OctTo12.OctToInt(number));
+            
         }
     }
 }

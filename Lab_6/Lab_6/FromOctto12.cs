@@ -8,39 +8,49 @@ namespace Lab_6
 {
     public class OctTo12
     {
+        public static Dictionary<int, string> alphabet = new Dictionary<int, string>()
+        {
+            {0, "0"},
+            {1, "1"},
+            {2, "2"},
+            {3, "3"},
+            {4, "4"},
+            {5, "5"},
+            {6, "6"},
+            {7, "7"},
+            {8, "8"},
+            {9, "9"},
+            {10, "A"},
+            {11, "B"}
+        };
         public static int OctToInt(string numbers)
         {
-            int result = 0;
-            var n = 1;
-            for (int i = numbers.Length - 1; i >= 0; i--)
+            if (numbers == "")
+                throw new ArgumentException("String is empty.");
+            else
             {
-                int currNumber = int.Parse(numbers[i].ToString());
-                result += currNumber * n;
-                n *= 8;
+                int result = 0;
+                var n = 1;
+                for (int i = numbers.Length - 1; i >= 0; i--)
+                {
+                    int currNumber = int.Parse(numbers[i].ToString());
+                    result += currNumber * n;
+                    n *= 8;
+                }
+                return result;
             }
-            return result;
         }
 
-        public static object IntTo12(int number)
+        public static string IntTo12(int number)
         {
-            var result = new List<int>();
-            while (number > 12)
+            var result = "";
+            while (number > 0)
             {
-                result.Add(number % 12);
+                result = alphabet[number % 12] + result;
                 number = number / 12;
             }
-            result.Add(number);
-            return Reverse(result); 
+            return result; 
         }
 
-        public static int Reverse(List<int> number)
-        {
-            int[] s = new int[number.Count];
-            for (int i = number.Count - 1; i >= 0; i--)
-            {
-                s[number.Count - 1 - i] = number[i];
-            }
-            return int.Parse(string.Join<int>("", s));
-        }
     }
 }
