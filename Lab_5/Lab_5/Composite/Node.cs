@@ -17,20 +17,12 @@ namespace Lab_5
             childList = new List<Component>();
         }
 
-        public override void Show(Graphics g, int level, int index)
-        {
-            DrawElement(g, level, index);
-            int i = 0;
-            foreach (var item in childList)
-            {
-                item.Show(g, level + 1, i);
-                i++;
-            }
-        }
+       
 
         public override void Add(Component component)
         {
             childList.Add(component);
+            component.LocalIndex = childList.IndexOf(component);
         }
 
         public override void Remove(Component component)
@@ -42,5 +34,22 @@ namespace Lab_5
         {
             return childList[index];
         }
+
+
+        public override int Show(Graphics g, int depth, int shift)
+        {
+            DrawSelf(g, depth, shift);
+            int i = 0;
+            int currentChildrensCount = 0;
+            int totalChildrensCount = 0;
+            foreach (var child in childList)
+            {
+                i++;
+                currentChildrensCount = child.Show(g, depth + 1, shift + i + currentChildrensCount);
+                totalChildrensCount += currentChildrensCount;
+            }
+            return totalChildrensCount + i;
+        }
+
     }
 }

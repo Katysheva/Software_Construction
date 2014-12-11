@@ -10,23 +10,31 @@ namespace Lab_5
 {
     abstract class Component
     {
-        public abstract void Show(Graphics g, int level, int index);
+        /// <summary>
+        /// Show each children. Return count of shown children.
+        /// </summary>
+        public abstract int Show(Graphics g, int depth, int shift);
         public abstract void Add(Component component);
         public abstract void Remove(Component component);
-        public abstract Component GetChild(int index);
+        public int LocalIndex { get; set; }
 
-        public virtual void DrawElement(Graphics g, int level, int index)
+        protected void DrawSelf(Graphics g, int depth, int shift)
         {
             var pen = new Pen(Color.DarkMagenta, 2);
             var brush = Brushes.Black;
             Font font = SystemFonts.MessageBoxFont;
-            var dy = 35;
-            var dx = 35;
-            var location = new Point(dx * index, level * dy);
             var size = new Size(30, 30);
+            var gapWidth = 5;
+            var dx = size.Width + gapWidth;
+            var location = new Point(dx * depth, dx * shift);
             var rect = new Rectangle(location, size);
             g.DrawEllipse(pen, rect);
-            g.DrawString((level + 1).ToString() + (index + 1).ToString(), font, brush, rect.X + rect.Width / 4, rect.Y + rect.Height / 4);
+            g.DrawString(
+                (depth + 1).ToString() + (LocalIndex + 1).ToString(), 
+                font, brush,
+                new PointF(rect.Location.X + rect.Size.Width / 4, rect.Location.Y + rect.Size.Height / 4));
+
         }
-    }
+        public abstract Component GetChild(int index);
+  }
 }

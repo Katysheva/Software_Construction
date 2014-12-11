@@ -12,29 +12,42 @@ namespace Lab_5
 {
     public partial class FormMain : Form
     {
-        Component c;
+        private Node[] nodes;
+        private Leaf[] leafs;
         public FormMain()
         {
             InitializeComponent();
         }
 
-        public void Action()
+        public void Init()
         {
-            c = new Node();
-            c.Add(new Leaf());
-            c.Add(new Leaf());
-            c.Add(new Leaf());
+            nodes = new Node[5];
+            leafs = new Leaf[5];
+            leafs = leafs.Select((leaf) => leaf = new Leaf()).ToArray();
+            nodes = nodes.Select((node) => node = new Node()).ToArray();
+
+            nodes[3].Add(leafs[1]);
+            nodes[4].Add(leafs[2]);
+
+            nodes[2].Add(nodes[3]);
+            nodes[2].Add(nodes[4]);
+
+            nodes[1].Add(leafs[0]);
+            nodes[1].Add(nodes[2]);
+            nodes[1].Add(leafs[3]);
+
+            nodes[0].Add(nodes[1]);
+            nodes[0].Add(leafs[4]);
+
+
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             var g = pictureBoxTree.CreateGraphics();
-            Action();
-            c.Show(g, 0, 0);
-            //for (int i = 0; i < 20; i++)
-            //{
-            //    c.DrawElement(g, i);
-            //}
+            Init();
+            this.Text = (nodes[0].Show(g, 0, 0) + 1).ToString();
         }
 
         private void buttonClose_Click(object sender, EventArgs e)

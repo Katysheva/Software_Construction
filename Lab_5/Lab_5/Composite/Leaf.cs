@@ -9,10 +9,6 @@ namespace Lab_5
 {
     class Leaf : Component
     {
-        public override void Show(Graphics g, int level, int index)
-        {
-            DrawElement(g, level, index);
-        }
 
         public override void Add(Component component)
         {
@@ -27,6 +23,12 @@ namespace Lab_5
         public override Component GetChild(int index)
         {
             throw new NotSupportedException();
+        }
+
+        public override int Show(Graphics g, int depth, int shift)
+        {
+            DrawSelf(g, depth, shift);
+            return 0;
         }
     }
 }
