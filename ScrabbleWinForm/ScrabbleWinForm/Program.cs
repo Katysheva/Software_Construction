@@ -20,17 +20,6 @@ namespace ScrabbleWinForm
             var model = new ScrabbleModel();
 
 
-
-
-
-
-
-
-
-
-
-
-
             var view = new FormMain();
             
             var controller = new ScrabbleController(model, view);

@@ -20,7 +20,6 @@ namespace ScrabbleWinForm
 
         public void RenderView()
         {
-
             if (view != null)
             {
                 view.DrawGrid(model.Grid);

@@ -21,9 +21,6 @@ namespace ScrabbleWinForm
         private Pen cellBorderPen;
 
 
-
-        private Player currentPlayer;
-
         Dictionary<int, Brush> factorBrushes = new Dictionary<int, Brush>()
         {
             {1, Brushes.SeaGreen},
@@ -124,51 +121,12 @@ namespace ScrabbleWinForm
         }
 
 
-       
-        //private void Select(Cell cellToSelect)
-        //{
-        //    using (var g = Graphics.FromImage(bmp))
-        //    {
-        //        var topLeftCorner = GetPoint(cellToSelect);
-        //        var rect = new Rectangle(topLeftCorner, size);
-        //        g.FillRectangle(Brushes.DarkViolet, rect);
-        //        g.DrawRectangle(cellBorderPen, rect);
-        //    }
-        //    canvas.Image = bmp;
-        //}
-
         private void GetCell(Point pointOfClick)
         {
             var col = pointOfClick.X / (size.Width + gapSize);
             var row = pointOfClick.Y / (size.Height + gapSize);
             //return grid[row, col];
         }
-
-        //private Point GetPoint(Cell cellToFind)
-        //{
-        //    int y = -1;
-        //    int x = -1;
-        //    var isFounded = false;
-        //    foreach (var row in grid.Rows)
-        //    {
-        //        if (!isFounded)
-        //        {
-        //            x = -1;
-        //            y++;
-        //            foreach (var cell in row)
-        //            {
-        //                x++;
-        //                if (cell == cellToFind)
-        //                {
-        //                    isFounded = true;
-        //                    break;
-        //                }
-        //            }
-        //        }
-        //    }
-        //    return new Point(x * (size.Width + gapSize), y * (size.Height + gapSize));
-        //}
-
 
         internal void SetController(IControllerBase controller)
         {

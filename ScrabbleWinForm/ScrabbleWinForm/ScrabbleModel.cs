@@ -81,6 +81,7 @@ namespace ScrabbleWinForm
                 Players.Add(new Player(string.Format("Player{0}", i + 1)));
             }
         }
+
         public void DealTheLetters()
         {
             if (Set != null)
@@ -100,7 +101,6 @@ namespace ScrabbleWinForm
                 }
             }
         }
-
 
         internal void SelectLetter(int index)
         {
@@ -168,6 +168,7 @@ namespace ScrabbleWinForm
             var isHorizontal = true;
             if (currentCells.Count >= 2)
                 isHorizontal = Grid.GetRow(currentCells[0]) == Grid.GetRow(currentCells[1]);
+
             currentCells.Sort(new Comparison<Cell>(
                 (cell1, cell2) => 
                 {
@@ -179,9 +180,9 @@ namespace ScrabbleWinForm
                     return result;
                 }
                 ));
+
             var word = string.Join("", currentCells.Select((cell) => cell.Letter));
             CheckWord(word);
-
 
             DealTheLetters();
         }
@@ -191,15 +192,21 @@ namespace ScrabbleWinForm
             {
                 string line;
                 int i = 0;
+                var isFounded = false;
                 while ((line = sr.ReadLine()) == word || (line = sr.ReadLine()) != null)
                 {
                     word = word.ToLower();
                     line = line.ToLower();
                     if (line == word)
+                    {
+                        isFounded = true;
                         MessageBox.Show(line);
+                    }
                     else
                         i++;
                 }
+                if (!isFounded)
+                    MessageBox.Show("Word is incorrect!");
             }
         }
     }
