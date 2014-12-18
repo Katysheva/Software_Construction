@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ScrabbleWinForm
 {
-    class ScrabbleController : IControllerBase
+    public class ScrabbleController : IControllerBase
     {
         private ScrabbleModel model;
         private FormMain view;

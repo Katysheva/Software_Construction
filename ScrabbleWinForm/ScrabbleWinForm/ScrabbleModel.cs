@@ -27,6 +27,7 @@ namespace ScrabbleWinForm
             CurrentPlayer = Players[0];
             currentCells = new List<Cell>();
         }
+
         public void InitMap()
         {
             using (var sr = new StreamReader("Map.txt"))
@@ -159,8 +160,6 @@ namespace ScrabbleWinForm
                     CurrentPlayer.Hand.Remove(letter);
                 }
             }
-
-
         }
 
         internal void IntermediateCount()
@@ -186,27 +185,33 @@ namespace ScrabbleWinForm
 
             DealTheLetters();
         }
+
         public void CheckWord(string word)
         {
-            using (var sr = new StreamReader("Dictionary.txt"))
+            if (word == "")
+                throw new ArgumentException("Field is empty");
+            else
             {
-                string line;
-                int i = 0;
-                var isFounded = false;
-                while ((line = sr.ReadLine()) == word || (line = sr.ReadLine()) != null)
+                using (var sr = new StreamReader("Dictionary.txt"))
                 {
-                    word = word.ToLower();
-                    line = line.ToLower();
-                    if (line == word)
+                    string line;
+                    int i = 0;
+                    var isFounded = false;
+                    while ((line = sr.ReadLine()) == word || (line = sr.ReadLine()) != null)
                     {
-                        isFounded = true;
-                        MessageBox.Show(line);
+                        word = word.ToLower();
+                        line = line.ToLower();
+                        if (line == word)
+                        {
+                            isFounded = true;
+                            MessageBox.Show(line);
+                        }
+                        else
+                            i++;
                     }
-                    else
-                        i++;
+                    if (!isFounded)
+                        MessageBox.Show("Word is incorrect!");
                 }
-                if (!isFounded)
-                    MessageBox.Show("Word is incorrect!");
             }
         }
     }
