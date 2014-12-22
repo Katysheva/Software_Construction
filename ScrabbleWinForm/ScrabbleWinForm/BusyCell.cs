@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ScrabbleWinForm
 {
-    class BusyCell : Cell
+    public class BusyCell : Cell
     {
         public BusyCell()
             : base() {}

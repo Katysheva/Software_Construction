@@ -15,7 +15,6 @@ namespace ScrabbleWinForm
         public Player CurrentPlayer { get; set; }
         public Letter CurrentLetter { get; set; }
         public List<Letter> Set { get; set; }
-
         private List<Cell> currentCells;
 
         public ScrabbleModel()
@@ -27,7 +26,6 @@ namespace ScrabbleWinForm
             CurrentPlayer = Players[0];
             currentCells = new List<Cell>();
         }
-
         public void InitMap()
         {
             using (var sr = new StreamReader("Map.txt"))
@@ -82,7 +80,6 @@ namespace ScrabbleWinForm
                 Players.Add(new Player(string.Format("Player{0}", i + 1)));
             }
         }
-
         public void DealTheLetters()
         {
             if (Set != null)
@@ -102,7 +99,6 @@ namespace ScrabbleWinForm
                 }
             }
         }
-
         internal void SelectLetter(int index)
         {
             CurrentLetter = CurrentPlayer.Hand[index];
@@ -110,7 +106,18 @@ namespace ScrabbleWinForm
 
         public void NextPlayer()
         {
+            ScoreCount();
+            if (CurrentPlayer != null && Players.Contains(CurrentPlayer))
+            {
+                var playerIndex = Players.IndexOf(CurrentPlayer);
+                playerIndex = playerIndex == Players.Count - 1 ? 0 : playerIndex + 1;
+                CurrentPlayer = Players[playerIndex];
+                currentCells.Clear();
+            }
+        }
 
+        public void ScoreCount()
+        {
             if (CurrentPlayer != null && Players.Contains(CurrentPlayer))
             {
                 foreach (var cell in currentCells)
@@ -121,17 +128,8 @@ namespace ScrabbleWinForm
                 {
                     CurrentPlayer.Score *= cell.WordFactor;
                 }
-
-                var playerIndex = Players.IndexOf(CurrentPlayer);
-                playerIndex = playerIndex == Players.Count - 1 ? 0 : playerIndex + 1;
-                CurrentPlayer = Players[playerIndex];
-
-
-                currentCells.Clear();
             }
         }
-
-
         internal void TryReceive(Letter letter, Cell cell)
         {
             if (!cell.IsLocked)
@@ -154,22 +152,35 @@ namespace ScrabbleWinForm
                 }
                 if (allowCol || allowRow)
                 {
-                    currentCells.Add(cell);
-                    cell.Letter = letter;
-                    cell.IsLocked = true;
+                    AddToCell(cell, letter);
                     CurrentPlayer.Hand.Remove(letter);
                 }
             }
         }
+        public void AddToCell(Cell cell, Letter letter)
+        {
+            currentCells.Add(cell);
+            cell.Letter = letter;
+            cell.IsLocked = true;
+        }
 
-        internal void IntermediateCount()
+        public string WordAssembly()
         {
             var isHorizontal = true;
             if (currentCells.Count >= 2)
                 isHorizontal = Grid.GetRow(currentCells[0]) == Grid.GetRow(currentCells[1]);
 
+            for (int i = 0; i < Grid.Rows.Count; i++)
+            {
+                var cell = isHorizontal
+                    ? Grid[Grid.GetRow(currentCells[0]), i]
+                    : Grid[i, Grid.GetColumn(currentCells[0])];
+                if (!currentCells.Contains(cell) && cell as BusyCell != null)
+                    currentCells.Add(cell);
+            }
+
             currentCells.Sort(new Comparison<Cell>(
-                (cell1, cell2) => 
+                (cell1, cell2) =>
                 {
                     int result = 0;
                     if (isHorizontal)
@@ -180,13 +191,10 @@ namespace ScrabbleWinForm
                 }
                 ));
 
-            var word = string.Join("", currentCells.Select((cell) => cell.Letter));
-            CheckWord(word);
-
-            DealTheLetters();
+            return string.Join("", currentCells.Select((cell) => cell.Letter));
         }
 
-        public void CheckWord(string word)
+        public bool CheckWord(string word)
         {
             if (word == "")
                 throw new ArgumentException("Field is empty");
@@ -195,24 +203,23 @@ namespace ScrabbleWinForm
                 using (var sr = new StreamReader("Dictionary.txt"))
                 {
                     string line;
-                    int i = 0;
                     var isFounded = false;
-                    while ((line = sr.ReadLine()) == word || (line = sr.ReadLine()) != null)
+                    word = word.ToLower();
+                    while ((line = sr.ReadLine()) != null)
                     {
-                        word = word.ToLower();
                         line = line.ToLower();
                         if (line == word)
                         {
                             isFounded = true;
-                            MessageBox.Show(line);
+                            break;
                         }
-                        else
-                            i++;
                     }
                     if (!isFounded)
-                        MessageBox.Show("Word is incorrect!");
+                        return false;
+
                 }
             }
+            return true;
         }
     }
 }

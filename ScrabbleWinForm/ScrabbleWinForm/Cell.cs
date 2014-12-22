@@ -10,6 +10,7 @@ namespace ScrabbleWinForm
     {
         private Letter letter;
         public Guid Id { get; set; }
+
         public Letter Letter
         {
             get { return letter; }

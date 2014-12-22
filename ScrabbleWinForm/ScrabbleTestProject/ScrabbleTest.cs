@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ScrabbleWinForm;
+using System.Collections.Generic;
 
 namespace ScrabbleTestProject
 {
@@ -11,7 +12,6 @@ namespace ScrabbleTestProject
         public void DealTheLetterTest()
         {
             var model = new ScrabbleModel();
-            model.DealTheLetters();
             var n = 4;
             for (int i = 0; i < n; i++)
             {
@@ -31,7 +31,6 @@ namespace ScrabbleTestProject
         public void NextPlayerTest()
         {
             var model = new ScrabbleModel();
-            model.CreatePlayers();
             model.CurrentPlayer = model.Players[1];
             model.NextPlayer();
 
@@ -57,5 +56,57 @@ namespace ScrabbleTestProject
             var actual = model.Set.Count;
             Assert.AreEqual(expected, actual);
         }
+        [TestMethod]
+        public void ScoreTest()
+        {
+            var model = new ScrabbleModel();
+            var wordLetters = new List<Letter>() 
+            {
+                new Letter('А', 1),
+                new Letter('Р', 2),
+                new Letter('Б', 3),
+                new Letter('У', 2),
+                new Letter('З', 5),
+            };
+            for (int i = 0; i < 5; i++)
+            {
+                model.AddToCell(model.Grid[8 + i, 8], wordLetters[i]);
+            }
+            model.WordAssembly();
+            model.ScoreCount();
+            var expected = 19;
+            var actual = model.CurrentPlayer.Score;
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void CheckWordTest()
+        {
+            var model = new ScrabbleModel();
+            var str = "ПиНгвин";
+            var actual = model.CheckWord(str);
+            Assert.AreEqual(true, actual);
+        }
+
+        [TestMethod]
+        public void WordAssemblyTest()
+        {
+            var model = new ScrabbleModel();
+            model.Grid[7, 8] = new BusyCell(new Letter('А', 1));
+            var wordLetters = new List<Letter>() 
+            {
+                new Letter('Р', 2),
+                new Letter('Б', 3),
+                new Letter('У', 2),
+                new Letter('З', 5),
+            };
+            for (int i = 0; i < wordLetters.Count; i++)
+            {
+                model.AddToCell(model.Grid[8 + i, 8], wordLetters[i]);
+            }
+            var actual = model.WordAssembly();
+            var expected = "АРБУЗ";
+            Assert.AreEqual(expected, actual);
+        }
+
     }
 }

@@ -51,7 +51,8 @@ namespace ScrabbleWinForm
         }
         public void NextPlayer()
         {
-            model.IntermediateCount();
+            model.CheckWord(model.WordAssembly());
+            model.DealTheLetters();
             model.NextPlayer();
             RenderPlayer();
         }
